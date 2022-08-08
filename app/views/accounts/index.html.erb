@@ -1,3 +1,42 @@
 <%= content_for :page_title do %>
 Accounts
 <% end %>
+
+<form action="/accounts" method="POST" data-turbo="false" class="mt-4">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+    Create a Stripe Account
+  </button>
+</form>
+
+<div class="bg-white shadow overflow-hidden sm:rounded-lg mt-4">
+  <div class="px-4 py-5 sm:px-6">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">Payment account information</h3>
+    <p class="mt-1 max-w-2xl text-sm text-gray-500">Stripe Account</p>
+  </div>
+  <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+    <dl class="sm:divide-y sm:divide-gray-200">
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Account ID</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= current_user.account.stripe_id %></dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Charges enabled?</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= current_user.account.charges_enabled? %></dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Payouts enabled?</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= current_user.account.payouts_enabled? %></dd>
+
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Financial Account ID</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= current_user.account.financial_account_id %></dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">External Account ID</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= current_user.account.external_account_id %></dd>
+      </div>
+    </dl>
+  </div>
+</div>

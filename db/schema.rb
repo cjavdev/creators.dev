@@ -10,13 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2022_08_08_175420) do
+ActiveRecord::Schema[7.1].define(version: 2022_08_08_210522) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "status", ["pending", "processing", "processed", "failed"]
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "stripe_id"
+    t.boolean "payouts_enabled"
+    t.boolean "charges_enabled"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "financial_account_id"
+    t.string "external_account_id"
+    t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
 
   create_table "events", force: :cascade do |t|
     t.json "data"
@@ -44,4 +56,5 @@ ActiveRecord::Schema[7.1].define(version: 2022_08_08_175420) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "accounts", "users"
 end
