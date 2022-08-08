@@ -10,6 +10,22 @@ class StripeAccount
     Rails.application.config.action_mailer.default_url_options
   end
 
+  def financial_balances
+    financial_account.balance
+  end
+
+  def payments_balances
+    @payments_balances ||= Stripe::Balance.retrieve(header)
+  end
+
+  def payout
+    amount = payments_balances.available.first.amount
+    @payout ||= Stripe::Payout.create({
+      amount: amount,
+      currency: 'usd',
+    }, header)
+  end
+
   def create_account
     return if account.stripe_id.present?
 
