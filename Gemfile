@@ -74,3 +74,5 @@ gem "sidekiq", "~> 6.5"
 gem "stripe", "~> 7.0"
 
 gem "byebug", "~> 11.1", :group => :development
+
+gem "annotate", "~> 3.2", :group => :development
