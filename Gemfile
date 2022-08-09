@@ -76,3 +76,5 @@ gem "stripe", "~> 7.0"
 gem "byebug", "~> 11.1", :group => :development
 
 gem "annotate", "~> 3.2", :group => :development
+
+gem "faker", "~> 2.22", :group => :development
