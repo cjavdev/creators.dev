@@ -28,4 +28,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one :account
+  has_many :products
 end

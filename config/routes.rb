@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   resource :dashboard
   resources :accounts
   resources :payouts, only: [:create]
+  resources :products
+  resource :checkout
 end

@@ -1,0 +1,94 @@
+<form action="/products" method="post" class="space-y-8 divide-y divide-gray-200" data-turbo="false">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <div class="space-y-8 divide-y divide-gray-200">
+    <div>
+      <div>
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Product</h3>
+        <p class="mt-1 text-sm text-gray-500"></p>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <div class="sm:col-span-4">
+          <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
+          <div class="mt-1">
+            <input type="text" name="product[name]" id="name" class="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-md sm:text-sm border-gray-300">
+          </div>
+        </div>
+
+        <div class="sm:col-span-6">
+          <label for="description" class="block text-sm font-medium text-gray-700"> Description </label>
+          <div class="mt-1">
+            <textarea id="description" name="product[description]" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"></textarea>
+          </div>
+          <p class="mt-2 text-sm text-gray-500">Write a few sentences to describe the product.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-8">
+      <div>
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Default Price</h3>
+        <p class="mt-1 text-sm text-gray-500">Set a default price.</p>
+      </div>
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <div class="sm:col-span-3">
+          <label for="currency" class="block text-sm font-medium text-gray-700">Currency</label>
+          <div class="mt-1">
+            <input type="text" value="usd" name="default_price_data[currency]" id="currency" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div class="sm:col-span-3">
+          <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
+          <div class="mt-1">
+            <input type="number" step="0.01" name="default_price_data[amount]" id="amount" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-controller="product-form" class="pt-8">
+      <div>
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Alternative Prices</h3>
+        <p class="mt-1 text-sm text-gray-500">
+          Select from the list of supported currencies
+          <a href="https://stripe.com/docs/currencies#presentment-currencies"
+             class="underline"
+            target="_blank">stripe.com/docs/currencies</a>
+        </p>
+      </div>
+
+      <button data-action="product-form#addPrice" type="button" class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add price</button>
+
+      <div data-product-form-target="prices"></div>
+
+      <template data-product-form-target="template">
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <div class="sm:col-span-3">
+            <label for="currency" class="block text-sm font-medium text-gray-700">Currency</label>
+            <div class="mt-1">
+              <input type="text" name="currency_options[][currency]" id="currency" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
+            <div class="mt-1">
+              <input type="number" step="0.01" name="currency_options[][amount]" id="amount" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+  </div>
+
+  <div class="pt-5">
+    <div class="flex justify-end">
+      <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Create Product
+      </button>
+    </div>
+  </div>
+</form>
+
