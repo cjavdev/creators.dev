@@ -1,3 +1,5 @@
+<%= image_tag @product.photo.representation(:thumb) %>
+<%= image_tag @product.photo.representation(:medium) %>
 
 <form action="/checkout" method="POST" data-turbo="false">
   <input type="hidden" name="product_id" value="<%= @product.id %>">

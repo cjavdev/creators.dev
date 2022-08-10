@@ -22,6 +22,13 @@
           </div>
           <p class="mt-2 text-sm text-gray-500">Write a few sentences to describe the product.</p>
         </div>
+
+        <div class="sm:col-span-6">
+          <label for="photo" class="block text-sm font-medium text-gray-700"> Photo </label>
+          <div class="mt-1">
+            <input type="file" data-direct-upload-url="<%= rails_direct_uploads_url %>" name="product[photo]" class="bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          </div>
+        </div>
       </div>
     </div>
 

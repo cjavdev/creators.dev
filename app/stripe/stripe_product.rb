@@ -21,6 +21,9 @@ class StripeProduct
     stripe_product = Stripe::Product.create({
       name: product.name,
       description: product.description,
+      images: [
+        product.photo.representation(:medium).processed.url,
+      ],
       metadata: {
         user_id: product.user_id,
         product_id: product.id
