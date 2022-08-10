@@ -1,0 +1,64 @@
+<form action="<%= store_path(@store) %>" method="post" class="">
+  <input type="hidden" name="_method" value="patch">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <div class="space-y-8">
+    <div>
+      <div>
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Your store</h3>
+        <p class="mt-1 text-sm text-gray-500">Where you sell digital products</p>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <div class="sm:col-span-4">
+          <label for="subdomain" class="block text-sm font-medium text-gray-700"> Subdomain </label>
+          <div class="mt-1 flex rounded-md shadow-sm">
+            <input
+              type="text"
+              name="store[subdomain]"
+              id="subdomain"
+              value="<%= @store.subdomain %>"
+              autocomplete="subdomain" class="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-none rounded-l-md sm:text-sm border-gray-300">
+            <span class="inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">.creators.dev/</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <div class="sm:col-span-4">
+          <label for="primary_color" class="block text-sm font-medium text-gray-700"> Primary Color </label>
+          <div class="mt-1">
+            <input
+              type="color"
+              name="store[primary_color]"
+              id="primary_color"
+              value="<%= @store.primary_color %>"
+              autocomplete="primary_color" class="">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <div class="sm:col-span-4">
+          <label for="secondary_color" class="block text-sm font-medium text-gray-700"> Secondary Color </label>
+          <div class="mt-1">
+            <input
+              type="color"
+              name="store[secondary_color]"
+              id="secondary_color"
+              value="<%= @store.secondary_color %>"
+              autocomplete="secondary_color" class="">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="pt-5">
+    <div class="flex justify-end">
+      <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save</button>
+    </div>
+  </div>
+</form>
+

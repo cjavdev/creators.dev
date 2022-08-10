@@ -29,6 +29,11 @@ class Product < ApplicationRecord
     photo.variant :medium, resize_to_limit: [400, 400]
   end
 
+  def price
+
+    product_data&.default_price&.unit_amount&.fdiv(100.0)
+  end
+
   def product_data
     return if data.blank?
     Stripe::Product.construct_from(JSON.parse(data))

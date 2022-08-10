@@ -34,7 +34,7 @@ Products
                   <%= link_to product.name, product %>
                 </td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-right">
-                  <%= number_to_currency(product.product_data&.default_price&.unit_amount&.fdiv(100.0)) %>
+                  <%= number_to_currency(product.price) %>
                 </td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                   <a href="<%= edit_product_path(product) %>" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
