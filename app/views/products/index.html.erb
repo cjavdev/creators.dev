@@ -31,7 +31,7 @@ Products
               <% @products.each do |product| %>
               <tr>
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                  <%= product.name %>
+                  <%= link_to product.name, product %>
                 </td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-right">
                   <%= number_to_currency(product.product_data&.default_price&.unit_amount&.fdiv(100.0)) %>

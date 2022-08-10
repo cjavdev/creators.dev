@@ -6,15 +6,17 @@ class StripeProduct
     @product = product
   end
 
+  def currency_options
+    params
+      .fetch(:currency_options, [])
+      .inject({}) do |acc, option|
+        acc[option[:currency]] = {unit_amount: option[:amount]}
+        acc
+      end
+  end
+
   def create_product
     return if product.stripe_id.present?
-
-    currency_options = params[:currency_options].inject({}) do |acc, option|
-      acc[option[:currency]] = {
-        unit_amount: option[:amount],
-      }
-      acc
-    end
 
     stripe_product = Stripe::Product.create({
       name: product.name,
