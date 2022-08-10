@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     scope module: :stores do
       resources :products
       root to: 'products#index', as: 'store_root'
+      resource :checkout, as: 'store_checkout'
     end
   end
 

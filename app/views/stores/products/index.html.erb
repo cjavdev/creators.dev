@@ -13,10 +13,7 @@
           <div class="mt-4 flex justify-between">
             <div>
               <h3 class="text-sm text-gray-700">
-                <a href="#">
-                  <span aria-hidden="true" class="absolute inset-0"></span>
-                  <%= product.name %>
-                </a>
+                <%= product.name %>
               </h3>
               <p class="mt-1 text-sm text-gray-500">
                 <%= product.description %>
@@ -25,6 +22,15 @@
             <p class="text-sm font-medium text-gray-900">
               <%= number_to_currency product.price %>
             </p>
+          </div>
+          <div>
+            <form action="/checkout" method="post" data-turbo="false">
+              <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+              <input type="hidden" name="price" value="<%= product.stripe_price_id %>">
+              <button type="submit" style="background-color: <%= @store.secondary_color %>" class="w-full mt-4 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Buy
+              </button>
+            </form>
           </div>
         </div>
       <% end %>

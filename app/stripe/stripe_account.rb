@@ -26,6 +26,19 @@ class StripeAccount
     }, header)
   end
 
+  def update_account_branding
+    store = account.store
+    return if store.primary_color.nil? || store.secondary_color.nil?
+    Stripe::Account.update(account.stripe_id, {
+      settings: {
+        branding: {
+          primary_color: store.primary_color,
+          secondary_color: store.secondary_color,
+        },
+      }
+    }, header)
+  end
+
   def create_account
     return if account.stripe_id.present?
 
