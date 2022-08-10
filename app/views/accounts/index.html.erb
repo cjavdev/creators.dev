@@ -2,13 +2,14 @@
 Accounts
 <% end %>
 
+<% if current_user.account.nil? %>
 <form action="/accounts" method="POST" data-turbo="false" class="mt-4">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
   <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
     Create a Stripe Account
   </button>
 </form>
-
+<% else %>
 <div class="bg-white shadow overflow-hidden sm:rounded-lg mt-4">
   <div class="px-4 py-5 sm:px-6">
     <h3 class="text-lg leading-6 font-medium text-gray-900">Payment account information</h3>
@@ -40,3 +41,4 @@ Accounts
     </dl>
   </div>
 </div>
+<% end %>
