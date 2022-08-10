@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   resource :store
 
   resource :checkout
+  resources :customers
 end

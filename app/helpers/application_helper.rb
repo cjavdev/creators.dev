@@ -6,13 +6,16 @@ module ApplicationHelper
       path: dashboard_path,
     }, {
       name: 'Accounts',
-      path: '/accounts'
+      path: accounts_path
     }, {
       name: 'Products',
-      path: '/products'
+      path: products_path,
     }, {
       name: 'Store',
-      path: '/store',
+      path: store_path,
+    }, {
+      name: 'Customers',
+      path: customers_path,
     }].map do |item|
       {
         name: item[:name],

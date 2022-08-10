@@ -22,6 +22,7 @@
 class Store < ApplicationRecord
   belongs_to :user
   has_many :products, through: :user
+  has_many :customers, through: :products
 
   def self.find_by_request(request)
     puts "Finding by request"
