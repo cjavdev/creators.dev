@@ -27,6 +27,7 @@ class Product < ApplicationRecord
   has_one :store, through: :user
   has_many :customer_products
   has_many :customers, through: :customer_products
+  has_many :attachments, dependent: :destroy
 
   has_one_attached :photo do |photo|
     photo.variant :thumb, resize_to_limit: [100, 100]

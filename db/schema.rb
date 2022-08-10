@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2022_08_10_204134) do
+ActiveRecord::Schema[7.1].define(version: 2022_08_10_211836) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,6 +56,24 @@ ActiveRecord::Schema[7.1].define(version: 2022_08_10_204134) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "attachment_views", force: :cascade do |t|
+    t.bigint "attachment_id", null: false
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attachment_id"], name: "index_attachment_views_on_attachment_id"
+    t.index ["customer_id"], name: "index_attachment_views_on_customer_id"
+  end
+
+  create_table "attachments", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.string "name"
+    t.integer "views_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_attachments_on_product_id"
   end
 
   create_table "customer_products", force: :cascade do |t|
@@ -131,6 +149,9 @@ ActiveRecord::Schema[7.1].define(version: 2022_08_10_204134) do
   add_foreign_key "accounts", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "attachment_views", "attachments"
+  add_foreign_key "attachment_views", "customers"
+  add_foreign_key "attachments", "products"
   add_foreign_key "customer_products", "customers"
   add_foreign_key "customer_products", "products"
   add_foreign_key "customers", "stores"

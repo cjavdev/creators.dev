@@ -1,12 +1,79 @@
-<%= image_tag @product.photo.representation(:thumb) %>
-<%= image_tag @product.photo.representation(:medium) %>
+<%= content_for :page_title do %>
+<%= @product.name %>
+<% end %>
 
-<form action="/checkout" method="POST" data-turbo="false">
-  <input type="hidden" name="product_id" value="<%= @product.id %>">
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+<div class="flex mt-8">
 
-  <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-    Checkout
-  </button>
-</form>
+  <div>
+    <%= image_tag @product.photo.representation(:medium) %>
+  </div>
 
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <div class="flex-auto px-4 sm:px-6 lg:px-8">
+    <div class="sm:flex sm:items-center">
+      <div class="sm:flex-auto">
+        <h1 class="text-xl font-semibold text-gray-900">Attachments</h1>
+        <p class="mt-2 text-sm text-gray-700">A list of all the attachments that customers have access to when they buy <%= @product.name %>.</p>
+      </div>
+      <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+      </div>
+    </div>
+    <div class="mt-8 flex flex-col">
+      <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+          <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+            <table class="min-w-full divide-y divide-gray-300">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Name</th>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Views</th>
+                  <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                    <span class="sr-only">Edit</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 bg-white">
+                <% @product.attachments.each do |attachment| %>
+                <tr>
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                    <%= attachment.name %>
+                  </td>
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                    <%= attachment.views_count %>
+                  </td>
+                  <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
+                  </td>
+                </tr>
+                <% end %>
+                <!-- More people... -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form action="<%= product_attachments_path(@product) %>" method="post" class="mt-8">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+        <div class="mt-1">
+          <input type="text" name="attachment[name]" id="name" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+        </div>
+      </div>
+
+      <div>
+        <label for="file" class="block text-sm font-medium text-gray-700">File</label>
+        <div class="mt-1">
+          <input type="file" id="file" data-direct-upload-url="<%= rails_direct_uploads_url %>" name="attachment[file]" class="bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        </div>
+      </div>
+      <div class="mt-4">
+        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Add Attachment
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
