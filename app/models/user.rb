@@ -27,6 +27,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  after_commit on: :create do
+    create_store!
+  end
+
   has_one :account
   has_one :store
   has_many :products

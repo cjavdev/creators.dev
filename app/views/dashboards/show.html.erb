@@ -2,6 +2,7 @@
 Dashboard
 <% end %>
 
+<% if !current_user.account.nil? %>
 <div class="mt-4">
   <h3 class="text-lg leading-6 font-medium text-gray-900">Payments balance</h3>
   <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
@@ -33,23 +34,25 @@ Dashboard
   </button>
 </form>
 
-<div class="mt-4">
-  <h3 class="text-lg leading-6 font-medium text-gray-900">Financial account balance</h3>
-  <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
-    <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
-      <dt class="text-sm font-medium text-gray-500 truncate">Cash</dt>
-      <dd class="mt-1 text-3xl font-semibold text-gray-900"><%= number_to_currency(@financial_balances.cash.usd / 100.0) %></dd>
-    </div>
+  <div class="mt-4">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">Financial account balance</h3>
+    <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+      <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+        <dt class="text-sm font-medium text-gray-500 truncate">Cash</dt>
+        <dd class="mt-1 text-3xl font-semibold text-gray-900"><%= number_to_currency(@financial_balances.cash.usd / 100.0) %></dd>
+      </div>
 
-    <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
-      <dt class="text-sm font-medium text-gray-500 truncate">Inbound pending</dt>
-      <dd class="mt-1 text-3xl font-semibold text-gray-900"><%= number_to_currency(@financial_balances.inbound_pending.usd / 100.0) %></dd>
-    </div>
+      <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+        <dt class="text-sm font-medium text-gray-500 truncate">Inbound pending</dt>
+        <dd class="mt-1 text-3xl font-semibold text-gray-900"><%= number_to_currency(@financial_balances.inbound_pending.usd / 100.0) %></dd>
+      </div>
 
-    <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
-      <dt class="text-sm font-medium text-gray-500 truncate">Outbound pending</dt>
-      <dd class="mt-1 text-3xl font-semibold text-gray-900"><%= number_to_currency(@financial_balances.outbound_pending.usd / 100.0) %></dd>
-    </div>
-  </dl>
-</div>
-
+      <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+        <dt class="text-sm font-medium text-gray-500 truncate">Outbound pending</dt>
+        <dd class="mt-1 text-3xl font-semibold text-gray-900"><%= number_to_currency(@financial_balances.outbound_pending.usd / 100.0) %></dd>
+      </div>
+    </dl>
+  </div>
+<% else %>
+Create an account to get started <a href="/accounts">here</a>.
+<% end %>
