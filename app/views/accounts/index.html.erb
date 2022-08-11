@@ -5,7 +5,7 @@ Accounts
 <% if current_user.account.nil? %>
 <form action="/accounts" method="POST" data-turbo="false" class="mt-4">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-  <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+  <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
     Create a Stripe Account
   </button>
 </form>

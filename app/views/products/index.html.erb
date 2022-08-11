@@ -9,7 +9,7 @@ Products
       <p class="mt-2 text-sm text-gray-700">A list of all the products in your account.</p>
     </div>
     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-      <a href="<%= new_product_path %>" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add product</a>
+      <a href="<%= new_product_path %>" class="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:w-auto">Add product</a>
     </div>
   </div>
   <div class="mt-8 flex flex-col">
@@ -36,7 +36,7 @@ Products
                   <%= number_to_currency(product.price) %>
                 </td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                  <a href="<%= edit_product_path(product) %>" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
+                  <a href="<%= edit_product_path(product) %>" class="text-blue-600 hover:text-blue-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
                 </td>
               </tr>
               <% end %>
