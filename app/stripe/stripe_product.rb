@@ -10,7 +10,7 @@ class StripeProduct
     params
       .fetch(:currency_options, [])
       .inject({}) do |acc, option|
-        acc[option[:currency]] = {unit_amount: option[:amount]}
+        acc[option[:currency]] = {unit_amount: (option[:amount].to_f * 100).to_i}
         acc
       end
   end
@@ -30,7 +30,7 @@ class StripeProduct
       },
       default_price_data: {
         currency: params[:default_price_data][:currency],
-        unit_amount: params[:default_price_data][:amount],
+        unit_amount: (params[:default_price_data][:amount].to_f * 100).to_i,
         currency_options: currency_options
       },
       expand: ['default_price'],
