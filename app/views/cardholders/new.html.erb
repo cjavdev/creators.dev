@@ -1,0 +1,85 @@
+<% content_for :page_title do %>
+Create a cardholder
+<% end %>
+
+<form action="/cardholders" method="post" class="space-y-8 divide-y divide-gray-200">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <div class="space-y-8 divide-y divide-gray-200">
+    <div class="pt-8">
+      <div>
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Cardholder Information</h3>
+        <p class="mt-1 text-sm text-gray-500">Use a billing address where you can receive mail.</p>
+      </div>
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <div class="sm:col-span-4">
+          <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+          <div class="mt-1">
+            <input type="text" name="cardholder[name]" id="name" autocomplete="name" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div class="sm:col-span-4">
+          <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+          <div class="mt-1">
+            <input type="text" name="cardholder[phone]" id="phone" autocomplete="phone" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div class="sm:col-span-4">
+          <label for="email" class="block text-sm font-medium text-gray-700"> Email address </label>
+          <div class="mt-1">
+            <input id="email" value="<%= current_user.email %>" name="cardholder[email]" type="email" autocomplete="email" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div class="sm:col-span-3">
+          <label for="country" class="block text-sm font-medium text-gray-700"> Country </label>
+          <div class="mt-1">
+            <select id="country" name="cardholder[billing][address][country]" autocomplete="country-name" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+              <option value="US">United States</option>
+              <option value="CA">Canada</option>
+              <option value="MX">Mexico</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sm:col-span-6">
+          <label for="street-address" class="block text-sm font-medium text-gray-700"> Street address </label>
+          <div class="mt-1">
+            <input type="text" name="cardholder[billing][address][line1]" id="street-address" autocomplete="street-address" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="city" class="block text-sm font-medium text-gray-700"> City </label>
+          <div class="mt-1">
+            <input type="text" name="cardholder[billing][address][city]" id="city" autocomplete="address-level2" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="region" class="block text-sm font-medium text-gray-700"> State / Province </label>
+          <div class="mt-1">
+            <input type="text" name="cardholder[billing][address][state]" id="region" autocomplete="address-level1" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="postal-code" class="block text-sm font-medium text-gray-700"> ZIP / Postal code </label>
+          <div class="mt-1">
+            <input type="text" name="cardholder[billing][address][postal_code]" id="postal-code" autocomplete="postal-code" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pt-5">
+    <div class="flex justify-end">
+      <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Create cardholder
+      </button>
+    </div>
+  </div>
+</form>
+

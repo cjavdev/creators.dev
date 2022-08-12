@@ -1,6 +1,7 @@
 require 'constraints/domain_constraint'
 
 Rails.application.routes.draw do
+  get 'cards/new'
   devise_for :users
   post '/webhooks/:source', to: 'webhooks#create'
 
@@ -26,4 +27,7 @@ Rails.application.routes.draw do
 
   resource :checkout
   resources :customers
+  resources :cardholders do
+    resources :cards, shallow: true
+  end
 end

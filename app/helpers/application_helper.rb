@@ -21,6 +21,9 @@ module ApplicationHelper
     }, {
       name: 'Customers',
       path: customers_path,
+    }, {
+      name: 'Cardholders',
+      path: cardholders_path,
     }].map do |item|
       {
         name: item[:name],
