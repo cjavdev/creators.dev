@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   resource :checkout
   resources :customers
   resources :cardholders do
-    resources :cards, shallow: true
+    resources :cards, shallow: true do
+      resource :ephemeral_key, only: [:show]
+    end
   end
 end

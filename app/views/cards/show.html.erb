@@ -1,0 +1,98 @@
+<div class="w-96 h-56 bg-red-100 rounded-xl relative text-white shadow-2xl transition-transform transform hover:scale-105">
+  <div class="relative object-cover w-full h-full rounded-xl bg-gradient-to-r from-teal-400 to-blue-400" ></div>
+  <div class="w-full px-8 absolute top-8">
+    <div class="flex justify-between">
+      <div>
+        <span class="font-light">Name</span>
+        <p id="cardholder-name" class="font-medium tracking-widest">
+          Jenny Rosen
+        </p>
+      </div>
+    </div>
+
+    <div class="pt-4">
+      <span class="font-light">Card Number</span>
+      <p id="card-number" class="font-medium tracking-widest">
+        4242 4242 4242 4242
+      </p>
+    </div>
+
+    <div class="pt-4 pr-6">
+      <div class="flex justify-between">
+        <div>
+          <span class="font-light text-xs">Expiry</span>
+          <p id="card-expiry" class="font-medium tracking-wider text-sm">
+          08 / 35
+          </p>
+        </div>
+
+        <div>
+          <span class="font-light text-xs"> CVV </span>
+          <p id="card-cvc" class="font-bold tracking-more-wider text-sm">
+          888
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const STRIPE_PUBLISHABLE_KEY = "<%= Rails.application.credentials.dig(:stripe, :publishable_key) %>"
+  const STRIPE_ACCOUNT = "<%= current_user.account.stripe_id %>"
+  const CARD_ID = "<%= @card.stripe_id %>"
+  const STYLE = {
+      base: {
+          color: "white",
+          fontSize: "14px",
+          lineHeight: "24px"
+        }
+    };
+
+  async function getEphemeralKey(nonce) {
+    // /card/1/ephemeral_key?nonce=123456789&version=2019-05-13
+    return await fetch(`<%= card_ephemeral_key_path(@card) %>?nonce=${nonce}&version=2020-08-27`).then(res => res.json());
+  }
+
+  const renderCard = async () => {
+    /* eslint-disable no-undef */
+    const stripe = Stripe(STRIPE_PUBLISHABLE_KEY, {
+      stripeAccount: STRIPE_ACCOUNT,
+      betas: ["issuing_elements_2"]
+    });
+
+    /* eslint-enable no-undef */
+    const elements = stripe.elements();
+
+    const {nonce} = await stripe.createEphemeralKeyNonce({
+      issuingCard: CARD_ID
+    });
+    const ephemeralKey = await getEphemeralKey(nonce);
+    const cardResult = await stripe.retrieveIssuingCard(CARD_ID, {
+      ephemeralKeySecret: ephemeralKey.secret,
+      nonce: nonce
+    });
+    console.log(cardResult);
+
+    const name = document.getElementById("cardholder-name");
+    const number = elements.create("issuingCardNumberDisplay", {
+        issuingCard: CARD_ID,
+        style: STYLE
+      });
+    const expiry = elements.create("issuingCardExpiryDisplay", {
+        issuingCard: CARD_ID,
+        style: STYLE
+      });
+    const cvc = elements.create("issuingCardCvcDisplay", {
+        issuingCard: CARD_ID,
+        style: STYLE
+      });
+
+    name.textContent = cardResult.issuingCard.cardholder.name;
+    number.mount("#card-number");
+    expiry.mount("#card-expiry");
+    cvc.mount("#card-cvc");
+  };
+
+  renderCard();
+</script>

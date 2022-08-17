@@ -1,6 +1,10 @@
 class CardsController < ApplicationController
   before_action :authenticate_user!
 
+  def show
+    @card = current_user.cards.find(params[:id])
+  end
+
   def create
     @cardholder = current_user.cardholders.find(params[:cardholder_id])
     @card = @cardholder.cards.new

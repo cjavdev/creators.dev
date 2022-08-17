@@ -31,5 +31,6 @@ class User < ApplicationRecord
   has_one :store
   has_many :products
   has_many :cardholders
+  has_many :cards, through: :cardholders
   accepts_nested_attributes_for :store
 end
