@@ -1,0 +1,52 @@
+<% content_for :page_title do %>
+Card
+<% end %>
+
+<%= @card.stripe_id %>
+
+<div
+  data-controller="card"
+  data-card-id-value="<%= @card.id %>"
+  data-card-stripe-id-value="<%= @card.stripe_id %>"
+  data-card-stripe-key-value="<%= Rails.application.credentials.dig(:stripe, :publishable_key) %>"
+  data-card-stripe-account-value="<%= current_user.account.stripe_id %>"
+
+  class="w-96 h-56 m-auto rounded-xl relative text-white shadow-2xl transition-transform transform hover:scale-110">
+  <div class="relative object-cover w-full h-full rounded-xl bg-gradient-to-r from-teal-400 to-blue-400" ></div>
+  <div class="w-full px-8 absolute top-8">
+    <div class="flex justify-between">
+      <div>
+        <span class="font-light">Name</span>
+        <p id="cardholder-name" class="font-medium tracking-widest">
+          Jenny Rosen
+        </p>
+      </div>
+    </div>
+
+    <div class="pt-4">
+      <span class="font-light">Card Number</span>
+      <p data-card-target="number" class="font-medium tracking-widest">
+        **** **** **** ****
+      </p>
+    </div>
+
+    <div class="pt-4 pr-6">
+      <div class="flex justify-between">
+        <div>
+          <span class="font-light text-xs">Expiry</span>
+          <p data-card-target="expiry" class="font-medium tracking-wider text-sm">
+          ** / **
+          </p>
+        </div>
+
+        <div>
+          <span class="font-light text-xs"> CVV </span>
+          <p data-card-target="cvc" class="font-bold tracking-more-wider text-sm">
+          ***
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

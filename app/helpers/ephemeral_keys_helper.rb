@@ -1,0 +1,2 @@
+module EphemeralKeysHelper
+end
