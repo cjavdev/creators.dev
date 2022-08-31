@@ -1,0 +1,12 @@
+Looks like you'll need to authenticate again.
+
+<form action="/logins" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
+  <p>
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" />
+  </p>
+  <p>
+    <button type="submit">Send Login Link</button>
+  </p>
+</form>

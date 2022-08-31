@@ -1,0 +1,10 @@
+<%= session[:customer] %>
+<%= @customer_product.to_json %>
+
+<div>
+  <% @product.attachments.each do |attachment| %>
+    <div>
+      <%= link_to attachment.name, attachment_path(attachment) %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,5 @@
+Thank you for purchasing <%= @product.name %>.
+
+Visit this link to view your order:
+
+<%= link_to 'download', order_url(subdomain: @product.store.subdomain, id: @customer_product.id, t: @customer.session_token) %>

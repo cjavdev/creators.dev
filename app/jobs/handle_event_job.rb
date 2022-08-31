@@ -39,16 +39,17 @@ class HandleEventJob < ApplicationJob
     product = Product.find_by(stripe_id: session.line_items.data[0].price.product)
     customer = Customer.find_or_initialize_by(
       stripe_id: session.customer,
-      store: product.store
     )
     customer.email = session.customer_details.email
+    customer.store = product.store
     customer.save!
 
-    CustomerProduct.create!(
+    customer_product = CustomerProduct.create!(
       customer: customer,
       product: product,
       checkout_session_id: session.id,
     )
+    OrderMailer.confirmed(customer_product).deliver_later
     # TODO: Email the customer a link to where they can download the product.
   end
 
