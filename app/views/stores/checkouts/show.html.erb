@@ -2,13 +2,13 @@
 <div class="bg-white">
   <div class="max-w-3xl mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
     <div class="max-w-xl">
-      <h1 class="text-sm font-semibold uppercase tracking-wide text-indigo-600">Thank you!</h1>
+      <h1 class="text-sm font-semibold uppercase tracking-wide text-blue-600">Thank you!</h1>
       <p class="mt-2 text-4xl font-extrabold tracking-tight sm:text-5xl">It's on the way!</p>
       <p class="mt-2 text-base text-gray-500">Your order #<%= @checkout_session.payment_intent.id %> is now available for download.</p>
 
       <dl class="mt-12 text-sm font-medium">
         <dt class="text-gray-900">Receipt</dt>
-        <dd class="text-indigo-600 mt-2">
+        <dd class="text-blue-600 mt-2">
           <a href="<%= @checkout_session.payment_intent.charges.data.first.receipt_url %>" target="_blank" class="underline">
             <%= @checkout_session.payment_intent.id %>
           </a>
