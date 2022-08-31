@@ -2,17 +2,17 @@
 #
 # Table name: customers
 #
-#  id            :bigint           not null, primary key
-#  email         :string           not null
-#  session_token :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  store_id      :bigint           not null
-#  stripe_id     :string
+#  id         :bigint           not null, primary key
+#  email      :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  store_id   :bigint           not null
+#  stripe_id  :string
 #
 # Indexes
 #
-#  index_customers_on_store_id  (store_id)
+#  index_customers_on_store_id            (store_id)
+#  index_customers_on_store_id_and_email  (store_id,email)
 #
 # Foreign Keys
 #
