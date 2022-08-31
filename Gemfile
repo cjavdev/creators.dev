@@ -82,3 +82,5 @@ gem "faker", "~> 2.22", :group => :development
 gem "image_processing", "~> 1.12"
 
 gem "aws-sdk-s3", "~> 1.114"
+
+gem "letter_opener", "~> 1.8", :group => :development
