@@ -1,0 +1,5 @@
+<h1>Here's your login link</h1>
+
+<p>
+  <%= link_to "login here", login_url(subdomain: @store.subdomain, id: @customer.session_token) %>
+</p>
