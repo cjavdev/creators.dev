@@ -1,122 +1,45 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
-<div class="bg-white">
-  <div class="max-w-3xl mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-    <div class="max-w-xl">
-      <h1 class="text-sm font-semibold uppercase tracking-wide text-blue-600">Thank you!</h1>
-      <p class="mt-2 text-4xl font-extrabold tracking-tight sm:text-5xl">It's on the way!</p>
-      <p class="mt-2 text-base text-gray-500">Your order #<%= @checkout_session.payment_intent.id %> is now available for download.</p>
+<div class="max-w-xl">
+  <h1 class="text-sm font-semibold uppercase tracking-wide text-blue-600">Thank you!</h1>
+  <p class="mt-2 text-4xl font-extrabold tracking-tight sm:text-5xl">It's on the way!</p>
+  <p class="mt-2 text-base text-gray-500">Your order #<%= @checkout_session.payment_intent.id %> is now available for download.</p>
 
-      <dl class="mt-12 text-sm font-medium">
-        <dt class="text-gray-900">Receipt</dt>
-        <dd class="text-blue-600 mt-2">
-          <a href="<%= @checkout_session.payment_intent.charges.data.first.receipt_url %>" target="_blank" class="underline">
-            <%= @checkout_session.payment_intent.id %>
-          </a>
-        </dd>
-      </dl>
-    </div>
+  <dl class="mt-12 text-sm font-medium">
+    <dt class="text-gray-900">Receipt</dt>
+    <dd class="text-blue-600 mt-2">
+      <a href="<%= @checkout_session.payment_intent.charges.data.first.receipt_url %>" target="_blank" class="underline">
+        <%= @checkout_session.payment_intent.id %>
+      </a>
+    </dd>
+  </dl>
+</div>
 
-    <div class="mt-10 border-t border-gray-200">
-      <h2 class="sr-only">Your order</h2>
+<div class="mt-10 border-t border-gray-200">
+  <h2 class="sr-only">Your order</h2>
 
-      <h3 class="sr-only">Items</h3>
+  <h3 class="sr-only">Items</h3>
 
-      <% @checkout_session.line_items.data.each do |line_item| %>
-        <% product = Product.find_by(stripe_id: line_item.price.product.id) %>
-        <div class="py-10 border-b border-gray-200 flex space-x-6">
-          <%= image_tag product.photo, class: "flex-none w-20 h-20 object-center object-cover bg-gray-100 rounded-lg sm:w-40 sm:h-40" %>
-          <div class="flex-auto flex flex-col">
-            <div>
-              <h4 class="font-medium text-gray-900">
-                <a href="#"><%= line_item.price.product.name %></a>
-              </h4>
-              <p class="mt-2 text-sm text-gray-600"><%= line_item.price.product.description %></p>
-            </div>
-            <div class="mt-6 flex-1 flex items-end">
-              <dl class="flex text-sm divide-x divide-gray-200 space-x-4 sm:space-x-6">
-                <div class="flex">
-                  <dt class="font-medium text-gray-900">Quantity</dt>
-                  <dd class="ml-2 text-gray-700"><%= line_item.quantity %></dd>
-                </div>
-                <div class="pl-4 flex sm:pl-6">
-                  <dt class="font-medium text-gray-900">Price</dt>
-                  <dd class="ml-2 text-gray-700">
-                    <%= number_to_currency(line_item.price.unit_amount.fdiv(100)) %>
-                  </dd>
-
-                </div>
-              </dl>
-            </div>
+  <% @checkout_session.line_items.data.each do |line_item| %>
+  <% product = Product.find_by(stripe_id: line_item.price.product.id) %>
+  <div class="py-10 border-b border-gray-200 flex space-x-6">
+    <%= image_tag product.photo, class: "flex-none w-20 h-20 object-center object-cover bg-gray-100 rounded-lg sm:w-40 sm:h-40" %>
+    <div class="flex-auto flex flex-col">
+      <div>
+        <h4 class="font-medium text-gray-900">
+          <a href="#"><%= line_item.price.product.name %></a>
+        </h4>
+        <p class="mt-2 text-sm text-gray-600"><%= line_item.price.product.description %></p>
+      </div>
+      <div class="mt-6 flex-1 flex items-end">
+        <dl class="flex text-sm divide-x divide-gray-200 space-x-4 sm:space-x-6">
+          <div class="flex">
+            <dt class="font-medium text-gray-900">Quantity</dt>
+            <dd class="ml-2 text-gray-700"><%= line_item.quantity %></dd>
           </div>
-        </div>
-      <% end %>
-
-      <div class="sm:ml-40 sm:pl-6">
-        <h3 class="sr-only">Your information</h3>
-
-        <h4 class="sr-only">Addresses</h4>
-        <dl class="grid grid-cols-2 gap-x-6 text-sm py-10">
-          <div>
-            <dt class="font-medium text-gray-900">For</dt>
-            <dd class="mt-2 text-gray-700">
-              <address class="not-italic">
-                <span class="block"><%= @checkout_session.customer_details.email %></span>
-              </address>
-            </dd>
-          </div>
-          <!-- <div> -->
-          <!--   <dt class="font-medium text-gray-900">Billing address</dt> -->
-          <!--   <dd class="mt-2 text-gray-700"> -->
-          <!--     <address class="not-italic"> -->
-          <!--       <span class="block">Kristin Watson</span> -->
-          <!--       <span class="block">7363 Cynthia Pass</span> -->
-          <!--       <span class="block">Toronto, ON N3Y 4H8</span> -->
-          <!--     </address> -->
-          <!--   </dd> -->
-          <!-- </div> -->
-        </dl>
-
-        <h4 class="sr-only">Payment</h4>
-        <dl class="grid grid-cols-2 gap-x-6 border-t border-gray-200 text-sm py-10">
-          <div>
-            <dt class="font-medium text-gray-900">Payment method</dt>
-            <dd class="mt-2 text-gray-700">
-              <!-- <p>Apple Pay</p> -->
-              <p><%= @checkout_session.payment_intent.payment_method.card.brand.capitalize %></p>
-              <p><span aria-hidden="true">•••• </span><span class="sr-only">Ending in </span>
-                <%= @checkout_session.payment_intent.payment_method.card.last4 %>
-              </p>
-            </dd>
-          </div>
-          <div>
-            <dt class="font-medium text-gray-900">Downloadable</dt>
-            <dd class="mt-2 text-gray-700">
-              <p>Download</p>
-              <p>Available up to 3 working days</p>
-            </dd>
-          </div>
-        </dl>
-
-        <h3 class="sr-only">Summary</h3>
-
-        <dl class="space-y-6 border-t border-gray-200 text-sm pt-10">
-          <div class="flex justify-between">
-            <dt class="font-medium text-gray-900">Subtotal</dt>
-            <dd class="text-gray-700">
-              <%= number_to_currency(@checkout_session.amount_subtotal.fdiv(100)) %>
-            </dd>
-          </div>
-          <!-- <div class="flex justify-between"> -->
-          <!--   <dt class="flex font-medium text-gray-900"> -->
-          <!--     Discount -->
-          <!--     <span class="rounded-full bg-gray-200 text-xs text-gray-600 py-0.5 px-2 ml-2">STUDENT50</span> -->
-          <!--   </dt> -->
-          <!--   <dd class="text-gray-700">-$18.00 (50%)</dd> -->
-          <!-- </div> -->
-          <div class="flex justify-between">
-            <dt class="font-medium text-gray-900">Total</dt>
-            <dd class="text-gray-900">
-              <%= number_to_currency(@checkout_session.amount_total.fdiv(100)) %>
+          <div class="pl-4 flex sm:pl-6">
+            <dt class="font-medium text-gray-900">Price</dt>
+            <dd class="ml-2 text-gray-700">
+              <%= number_to_currency(line_item.price.unit_amount.fdiv(100)) %>
             </dd>
 
           </div>
@@ -124,5 +47,77 @@
       </div>
     </div>
   </div>
-</div>
+  <% end %>
 
+  <div class="sm:ml-40 sm:pl-6">
+    <h3 class="sr-only">Your information</h3>
+
+    <h4 class="sr-only">Addresses</h4>
+    <dl class="grid grid-cols-2 gap-x-6 text-sm py-10">
+      <div>
+        <dt class="font-medium text-gray-900">For</dt>
+        <dd class="mt-2 text-gray-700">
+          <address class="not-italic">
+            <span class="block"><%= @checkout_session.customer_details.email %></span>
+          </address>
+        </dd>
+      </div>
+      <!-- <div> -->
+      <!--   <dt class="font-medium text-gray-900">Billing address</dt> -->
+      <!--   <dd class="mt-2 text-gray-700"> -->
+      <!--     <address class="not-italic"> -->
+      <!--       <span class="block">Kristin Watson</span> -->
+      <!--       <span class="block">7363 Cynthia Pass</span> -->
+      <!--       <span class="block">Toronto, ON N3Y 4H8</span> -->
+      <!--     </address> -->
+      <!--   </dd> -->
+      <!-- </div> -->
+    </dl>
+
+    <h4 class="sr-only">Payment</h4>
+    <dl class="grid grid-cols-2 gap-x-6 border-t border-gray-200 text-sm py-10">
+      <div>
+        <dt class="font-medium text-gray-900">Payment method</dt>
+        <dd class="mt-2 text-gray-700">
+          <!-- <p>Apple Pay</p> -->
+          <p><%= @checkout_session.payment_intent.payment_method.card.brand.capitalize %></p>
+          <p><span aria-hidden="true">•••• </span><span class="sr-only">Ending in </span>
+          <%= @checkout_session.payment_intent.payment_method.card.last4 %>
+          </p>
+        </dd>
+      </div>
+      <div>
+        <dt class="font-medium text-gray-900">Downloadable</dt>
+        <dd class="mt-2 text-gray-700">
+          <p>Download</p>
+          <p>Available up to 3 working days</p>
+        </dd>
+      </div>
+    </dl>
+
+    <h3 class="sr-only">Summary</h3>
+
+    <dl class="space-y-6 border-t border-gray-200 text-sm pt-10">
+      <div class="flex justify-between">
+        <dt class="font-medium text-gray-900">Subtotal</dt>
+        <dd class="text-gray-700">
+          <%= number_to_currency(@checkout_session.amount_subtotal.fdiv(100)) %>
+        </dd>
+      </div>
+      <!-- <div class="flex justify-between"> -->
+      <!--   <dt class="flex font-medium text-gray-900"> -->
+      <!--     Discount -->
+      <!--     <span class="rounded-full bg-gray-200 text-xs text-gray-600 py-0.5 px-2 ml-2">STUDENT50</span> -->
+      <!--   </dt> -->
+      <!--   <dd class="text-gray-700">-$18.00 (50%)</dd> -->
+      <!-- </div> -->
+      <div class="flex justify-between">
+        <dt class="font-medium text-gray-900">Total</dt>
+        <dd class="text-gray-900">
+          <%= number_to_currency(@checkout_session.amount_total.fdiv(100)) %>
+        </dd>
+
+      </div>
+    </dl>
+  </div>
+</div>
