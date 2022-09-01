@@ -1,7 +1,6 @@
 require 'constraints/domain_constraint'
 
 Rails.application.routes.draw do
-  get 'cards/new'
   devise_for :users
   post '/webhooks/:source', to: 'webhooks#create'
 
@@ -12,6 +11,7 @@ Rails.application.routes.draw do
       resource :checkout, as: 'store_checkout'
       resources :logins
       resources :orders
+      resources :attachments
     end
   end
 

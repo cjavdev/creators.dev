@@ -9,7 +9,12 @@ module Stores
       if @customer
         session[:customer] = @customer.session_token
       end
-      redirect_to orders_path
+
+      if params[:redirect_path]
+        redirect_to params[:redirect_path]
+      else
+        redirect_to orders_path
+      end
     end
 
     def new

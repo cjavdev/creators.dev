@@ -1,0 +1,9 @@
+<h1>Your order is ready for download</h1>
+
+<%= @product.name %>
+
+<%= link_to "login here", login_url(
+  subdomain: @product.store.subdomain,
+  id: @customer.session_token,
+  redirect_path: order_url(@customer_product, subdomain: @product.store.subdomain)
+) %>

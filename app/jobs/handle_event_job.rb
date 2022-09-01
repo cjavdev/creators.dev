@@ -44,12 +44,12 @@ class HandleEventJob < ApplicationJob
     customer.email = session.customer_details.email
     customer.save!
 
-    CustomerProduct.create!(
+    customer_product = CustomerProduct.create!(
       customer: customer,
       product: product,
       checkout_session_id: session.id,
     )
-    # TODO: Email the customer a link to where they can download the product.
+    OrderMailer.new_order(customer_product).deliver_later
   end
 
   def handle_financial_account_features_status_updated(stripe_event)

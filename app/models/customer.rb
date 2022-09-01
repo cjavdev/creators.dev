@@ -23,6 +23,7 @@ class Customer < ApplicationRecord
   belongs_to :store
   has_many :customer_products
   has_many :products, through: :customer_products
+  has_many :attachments, through: :products
 
   after_commit on: :create do
     reset_session_token!
