@@ -1,24 +1,11 @@
-# README
+# CreatorPlatform.xyz
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Learn to build a platform with embedded finance to enable creators to sell
+their digital downloads to end customers. Uses Ruby on Rails 7, TailwindUI, AWS
+S3, Heroku, Postgres, Sidekiq, Stimulus.js, and Stripe.
 
-Things you may want to cover:
 
-* Ruby version
+### TODO:
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- [ ] Enforce uniqueness for store subdomains and reserve a set of subdomains like `account` and `www`.
+- [ ]
