@@ -11,3 +11,4 @@ S3, Heroku, Postgres, Sidekiq, Stimulus.js, and Stripe.
 - [ ] Cardholder name posessive case `CJ's` vs `Chris'`
 - [ ] Issue Physical Cards
 - [ ] Handle issuing authorization requests in the webhook handler
+- [ ] Edit prices
