@@ -5,7 +5,9 @@
 <div class="flex mt-8">
 
   <div>
-    <%= image_tag @product.photo.representation(:medium) %>
+    <% if @product.photo.representation(:medium) %>
+      <%= image_tag @product.photo.representation(:medium) %>
+    <% end %>
   </div>
 
   <!-- This example requires Tailwind CSS v2.0+ -->

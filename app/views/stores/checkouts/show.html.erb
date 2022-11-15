@@ -22,7 +22,9 @@
   <% @checkout_session.line_items.data.each do |line_item| %>
   <% product = Product.find_by(stripe_id: line_item.price.product.id) %>
   <div class="py-10 border-b border-gray-200 flex space-x-6">
-    <%= image_tag product.photo, class: "flex-none w-20 h-20 object-center object-cover bg-gray-100 rounded-lg sm:w-40 sm:h-40" %>
+    <% if product.photo.representation(:medium) %>
+      <%= image_tag product.photo, class: "flex-none w-20 h-20 object-center object-cover bg-gray-100 rounded-lg sm:w-40 sm:h-40" %>
+    <% end %>
     <div class="flex-auto flex flex-col">
       <div>
         <h4 class="font-medium text-gray-900">

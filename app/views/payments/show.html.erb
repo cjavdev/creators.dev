@@ -1,0 +1,23 @@
+<% content_for :page_title do %>
+Payments
+<% end %>
+
+<div>
+  <stripe-payment-details-experience charge-id="<%= params[:id] %>" hidden="false">
+  </stripe-payment-details-experience>
+</div>
+
+<% if flash[:error] %>
+<%= flash[:error] %>
+<% else %>
+  <script>
+    window.StripeConnect ||= {};
+    StripeConnect.onLoad = () => {
+      StripeConnect.init({
+        publishableKey: "<%= Rails.application.credentials.dig(:stripe, :publishable_key) %>",
+        clientSecret: "<%= @account_session.client_secret %>",
+      });
+    };
+  </script>
+  <script async src="https://b.stripecdn.com/connect-js/v0.1/connect.js"></script>
+<% end %>

@@ -13,6 +13,13 @@ class CheckoutsController < ApplicationController
         price: product.stripe_price_id,
         quantity: 1,
       }],
+      payment_intent_data: {
+        application_fee_amount: 200,
+        description: product.description,
+        metadata: {
+          name: product.name,
+        }
+      },
     }, {
       stripe_account: account.stripe_id,
     })

@@ -3,13 +3,20 @@ Accounts
 <% end %>
 
 <% if current_user.account.nil? %>
-<form action="/accounts" method="POST" data-turbo="false" class="mt-4">
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-  <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-    Create a Stripe Account
-  </button>
-</form>
+  <form action="/accounts" method="POST" data-turbo="false" class="mt-4">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+      Create a Stripe Account
+    </button>
+  </form>
 <% else %>
+
+<!-- this is included in the account management experience already, so commenting out -->
+<!-- <stripe-notifications-banner></stripe-notifications-banner> -->
+
+<stripe-account-management-experience></stripe-account-management-experience>
+
+
 <div class="bg-white shadow overflow-hidden sm:rounded-lg mt-4">
   <div class="px-4 py-5 sm:px-6">
     <h3 class="text-lg leading-6 font-medium text-gray-900">Payment account information</h3>
@@ -41,4 +48,19 @@ Accounts
     </dl>
   </div>
 </div>
+  <% if flash[:error] %>
+  <%= flash[:error] %>
+  <% else %>
+    <script>
+      window.StripeConnect ||= {};
+      StripeConnect.onLoad = () => {
+        StripeConnect.init({
+          publishableKey: "<%= Rails.application.credentials.dig(:stripe, :publishable_key) %>",
+          clientSecret: "<%= @account_session.client_secret %>",
+        });
+      };
+    </script>
+    <script async src="https://b.stripecdn.com/connect-js/v0.1/connect.js"></script>
+  <% end %>
 <% end %>
+

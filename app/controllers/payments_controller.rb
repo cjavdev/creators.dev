@@ -1,17 +1,15 @@
-class AccountsController < ApplicationController
+class PaymentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_account_session, only: [:index]
+  before_action :set_account_session
 
   def index
 
   end
 
-  def create
-    @account = Account.find_or_create_by(user: current_user)
-    service = StripeAccount.new(@account)
-    service.create_account
-    redirect_to service.onboarding_url, allow_other_host: true, status: :see_other
+  def show
   end
+
+  private
 
   def set_account_session
     @account_session = Stripe::AccountSession.create(
@@ -26,4 +24,5 @@ class AccountsController < ApplicationController
   rescue => e
     flash[:error] = e.message
   end
+
 end

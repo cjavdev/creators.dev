@@ -29,6 +29,11 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :description, :photo)
+    @product_params = params
+      .require(:product)
+      .permit(:name, :description, :photo)
+
+    @product_params.delete(:photo) if @product_params[:photo].blank?
+    @product_params
   end
 end

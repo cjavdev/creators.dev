@@ -17,13 +17,16 @@ class StripeProduct
 
   def create_product
     return if product.stripe_id.present?
+    images = []
+
+    if product.photo && product.photo.representation(:medium)
+      images << product.photo.representation(:medium).processed.url
+    end
 
     stripe_product = Stripe::Product.create({
       name: product.name,
       description: product.description,
-      images: [
-        product.photo.representation(:medium).processed.url,
-      ],
+      images: images,
       metadata: {
         user_id: product.user_id,
         product_id: product.id
