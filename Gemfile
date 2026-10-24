@@ -1,10 +1,10 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.2"
+ruby "4.0.9"
 
 # Use main development branch of Rails
-gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 8.1.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -13,7 +13,7 @@ gem "sprockets-rails"
 gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+gem "puma", "~> 7.0"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
@@ -31,7 +31,7 @@ gem "cssbundling-rails"
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-gem "redis", "~> 4.0"
+gem "redis", "~> 5.0"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -67,20 +67,20 @@ group :development do
   # gem "spring"
 end
 
-gem "devise", "~> 4.8"
+gem "devise"
 
-gem "sidekiq", "~> 6.5"
+gem "sidekiq", "~> 7.3"
 
 gem "stripe", "~> 7.0"
 
-gem "byebug", "~> 11.1", :group => :development
+gem "byebug", "~> 12.0", :group => :development
 
-gem "annotate", "~> 3.2", :group => :development
+gem "annotaterb", :group => :development
 
-gem "faker", "~> 2.22", :group => :development
+gem "faker", "~> 3.5", :group => :development
 
 gem "image_processing", "~> 1.12"
 
 gem "aws-sdk-s3", "~> 1.114"
 
-gem "letter_opener", "~> 1.8", :group => :development
+gem "letter_opener", "~> 1.10", :group => :development
